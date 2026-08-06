@@ -55,3 +55,57 @@
 // =============================================================================
 
 
+// Fibonacci Sequence Generator
+// assignment_05_fibonacci_sequence.js
+
+const readlineSync = require('readline-sync');
+
+// Part A: Print the first N terms
+function printFibonacci(n) {
+    if (n <= 0) {
+        console.log("Error: Number of terms must be positive.");
+        return;
+    }
+
+    let a = 0, b = 1;
+    let sequence = [];
+    for (let i = 0; i < n; i++) {
+        sequence.push(a);
+        let next = a + b;
+        a = b;
+        b = next;
+    }
+    console.log("Fibonacci sequence:", sequence.join(" "));
+}
+
+// Part B: Check if a number belongs to the sequence
+function isFibonacci(num) {
+    if (num < 0) return false;
+
+    let a = 0, b = 1;
+    while (a <= num) {
+        if (a === num) return true;
+        let next = a + b;
+        a = b;
+        b = next;
+    }
+    return false;
+}
+
+// Main function
+function main() {
+    // Part A
+    const n = readlineSync.questionInt("How many terms? ");
+    printFibonacci(n);
+
+    // Part B
+    const num = readlineSync.questionInt("\nEnter a number to check: ");
+    if (isFibonacci(num)) {
+        console.log(`${num} is a Fibonacci number.`);
+    } else {
+        console.log(`${num} is NOT a Fibonacci number.`);
+    }
+}
+
+// Run the program
+main();

@@ -82,3 +82,76 @@
 // =============================================================================
 
 
+// Console-Based To-Do List Application
+// assignment_07_todo_list.js
+
+const readlineSync = require('readline-sync');
+
+let tasks = [];
+
+// Function to add a task
+function addTask() {
+    const task = readlineSync.question("Enter task: ");
+    tasks.push(task);
+    console.log(`Task added: "${task}"`);
+}
+
+// Function to view all tasks
+function viewTasks() {
+    if (tasks.length === 0) {
+        console.log("Your to-do list is empty.");
+    } else {
+        console.log("Your Tasks:");
+        for (let i = 0; i < tasks.length; i++) {
+            console.log(`${i + 1}. ${tasks[i]}`);
+        }
+    }
+}
+
+// Function to delete a task
+function deleteTask() {
+    if (tasks.length === 0) {
+        console.log("No tasks to delete.");
+        return;
+    }
+
+    viewTasks();
+    const num = readlineSync.questionInt("Enter task number to delete: ");
+    if (num >= 1 && num <= tasks.length) {
+        const removed = tasks.splice(num - 1, 1);
+        console.log(`Task "${removed}" has been removed.`);
+    } else {
+        console.log("Error: Invalid task number.");
+    }
+}
+
+// Function to display the menu
+function menu() {
+    while (true) {
+        console.log("\n============================");
+        console.log("       TO-DO LIST MENU      ");
+        console.log("============================");
+        console.log("1. Add task");
+        console.log("2. View tasks");
+        console.log("3. Delete task");
+        console.log("4. Quit");
+
+        const choice = readlineSync.question("Enter your choice (1-4): ");
+
+        if (choice === "1") {
+            addTask();
+        } else if (choice === "2") {
+            viewTasks();
+        } else if (choice === "3") {
+            deleteTask();
+        } else if (choice === "4") {
+            console.log("Goodbye!");
+            break;
+        } else {
+            console.log("Error: Invalid choice. Please enter 1-4.");
+        }
+    }
+}
+
+// Run the program
+menu();
